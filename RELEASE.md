@@ -7,6 +7,9 @@ This release of Bluetooth Manufacturing Test Application includes as following:
 * Download Bluetooth Firmware
 * Acts as a transport layer between the host "WMBT tool" and Bluetooth Firmware
 
+### v1.1.0
+* Update bluetooth-freertos version to latest-v3.X
+
 ### v1.0.0
 * Initial release
 
