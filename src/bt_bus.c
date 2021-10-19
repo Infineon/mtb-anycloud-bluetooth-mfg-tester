@@ -1,7 +1,7 @@
 /*
-* Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of 
+* Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
- * 
+ *
  * This software, associated documentation and materials ("Software"),
  * is owned by Cypress Semiconductor Corporation
  * or one of its subsidiaries ("Cypress") and is protected by and subject to
@@ -320,12 +320,23 @@ bool bluetooth_uart_init( void )
     bt_uart_cfg.rx_buffer = NULL;
     bt_uart_cfg.rx_buffer_size = 0;
 
-    result = cyhal_uart_init( &uart_hal_obj,
-                              uart_config.uart_tx_pin,
-                              uart_config.uart_rx_pin,
-                              NULL,
-                              &bt_uart_cfg
-                             );
+#if (CYHAL_API_VERSION >= 2)
+    result = cyhal_uart_init(&bt_uart_cfg,
+                             uart_config.uart_tx_pin,
+                             uart_config.uart_rx_pin,
+                             uart_config.uart_cts_pin,
+                             uart_config.uart_rts_pin,
+                             NULL,
+                             &bt_uart_cfg
+                            );
+#else
+    result = cyhal_uart_init(&uart_hal_obj,
+                             uart_config.uart_tx_pin,
+                             uart_config.uart_rx_pin,
+                             NULL,
+                             &bt_uart_cfg
+                            );
+#endif
     if( CY_RSLT_SUCCESS != result )
     {
         APP_TRACE_DEBUG("hci_uart_init(): init error (0x%x)\n", result);
@@ -346,10 +357,14 @@ bool bluetooth_uart_init( void )
 
     if( true == uart_config.flow_control )
     {
-        result= cyhal_uart_set_flow_control( &uart_hal_obj,
-                                             uart_config.uart_cts_pin,
-                                             uart_config.uart_rts_pin
-                                           );
+    #if (CYHAL_API_VERSION >= 2)
+        result = cyhal_uart_enable_flow_control(&uart_hal_obj, true, true);
+    #else
+        result = cyhal_uart_set_flow_control( &uart_hal_obj,
+                                              uart_config.uart_cts_pin,
+                                              uart_config.uart_rts_pin
+                                            );
+    #endif
         if( CY_RSLT_SUCCESS != result )
         {
             APP_TRACE_DEBUG("hci_uart_init(): Set flow control failed (0x%x)\n",

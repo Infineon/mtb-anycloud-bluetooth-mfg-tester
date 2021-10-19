@@ -128,6 +128,7 @@ POSTBUILD=
 
 # Adds to the directory and file ignore list.
 CY_IGNORE=$(SEARCH_bluetooth-freertos)/platform
+CY_IGNORE+=btsdk-utils
 
 ################################################################################
 # Paths
