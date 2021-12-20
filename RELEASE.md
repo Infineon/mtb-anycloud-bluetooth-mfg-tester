@@ -7,6 +7,10 @@ This release of Bluetooth Manufacturing Test Application includes as following:
 * Download Bluetooth Firmware
 * Acts as a transport layer between the host "WMBT tool" and Bluetooth Firmware
 
+### v1.3.0
+* Fixed memory overwrite
+* Upgrade BSP version to v3.X
+
 ### v1.2.0
 * Include WMBT tool from [btsdk-util](https://github.com/Infineon/btsdk-utils)
 * Update README

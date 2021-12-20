@@ -321,7 +321,7 @@ bool bluetooth_uart_init( void )
     bt_uart_cfg.rx_buffer_size = 0;
 
 #if (CYHAL_API_VERSION >= 2)
-    result = cyhal_uart_init(&bt_uart_cfg,
+    result = cyhal_uart_init(&uart_hal_obj,
                              uart_config.uart_tx_pin,
                              uart_config.uart_rx_pin,
                              uart_config.uart_cts_pin,

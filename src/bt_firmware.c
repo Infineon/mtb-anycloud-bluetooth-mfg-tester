@@ -1,7 +1,7 @@
 /*
-* Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of 
+* Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
  * Cypress Semiconductor Corporation. All Rights Reserved.
- * 
+ *
  * This software, associated documentation and materials ("Software"),
  * is owned by Cypress Semiconductor Corporation
  * or one of its subsidiaries ("Cypress") and is protected by and subject to
@@ -54,7 +54,7 @@
 /* Verify if bt_bus function returns success.
  * Otherwise, returns the error code immediately.
  * Assert in DEBUG build.
- */ 
+ */
 #define VERIFY_RETVAL( function_call ) \
 do \
 { \
@@ -150,7 +150,7 @@ bool bt_firmware_download( const uint8_t* firmware_image, uint32_t size )
         uint32_t data_length = data[ 2 ] + 3; /* content of data length + 2 bytes of opcode and 1 byte of data length */
         uint8_t residual_data = 0;
         hci_command_opcode_t command_opcode = *(hci_command_opcode_t*) data;
-        uint8_t temp_data[ 256 ];
+        uint8_t temp_data[ 259 ]; /* content of 1 byte of packet type + 2 bytes of opcode + 1 byte of data length + max data 255 bytes*/
 
         memset( &hci_event, 0, sizeof( hci_event ) );
         memset( temp_data, 0, sizeof( temp_data ) );
